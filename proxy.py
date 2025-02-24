@@ -6,7 +6,7 @@ from starlette.responses import StreamingResponse
 app = FastAPI()
 
 # Define the target server URL
-TARGET_SERVER = "https://forum.ailab.unb.br"
+TARGET_SERVER = "----"
 
 client = httpx.AsyncClient(timeout=None)
 
@@ -20,8 +20,8 @@ class ReverseProxyMiddleware(BaseHTTPMiddleware):
         target_url = f"{TARGET_SERVER}{request.url.path}"
         headers=dict(request.headers)
         headers.update({
-            "apikey": "e8b6d8e0f47f3e02c6a10d38c1d67415",
-            "host": "forum.ailab.unb.br"
+            "apikey": "----",
+            "host": "-----"
         })
         req = client.build_request(request.method, target_url, headers=headers, data=await request.body())
         r = await client.send(req, stream=True)
@@ -34,4 +34,4 @@ app.add_middleware(ReverseProxyMiddleware)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="-----", port=8000)
